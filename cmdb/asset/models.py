@@ -24,6 +24,7 @@ class Host(models.Model):
     remark = models.CharField(max_length=100,null=False,default='')
 #   owner
 #   label
+    
     create_time = models.DateTimeField(null=False,auto_now_add=True)
     update_time = models.DateTimeField(null=False)
 

@@ -1,0 +1,511 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block main %}
+<div class="main-content-inner">
+    <!-- #section:basics/content.breadcrumbs -->
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="#">Home</a>
+            </li>
+
+            <li>
+                <a href="#">Tables</a>
+            </li>
+            <li class="active">Simple &amp; Dynamic</li>
+        </ul><!-- /.breadcrumb -->
+
+        <!-- #section:basics/content.searchbox -->
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+                    <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                    <i class="ace-icon fa fa-search nav-search-icon"></i>
+                </span>
+            </form>
+        </div><!-- /.nav-search -->
+
+        <!-- /section:basics/content.searchbox -->
+    </div>
+
+    <!-- /section:basics/content.breadcrumbs -->
+    <div class="page-content">
+        <!-- #section:settings.box -->
+        <div class="ace-settings-container" id="ace-settings-container">
+            <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+                <i class="ace-icon fa fa-cog bigger-130"></i>
+            </div>
+
+            <div class="ace-settings-box clearfix" id="ace-settings-box">
+                <div class="pull-left width-50">
+                    <!-- #section:settings.skins -->
+                    <div class="ace-settings-item">
+                        <div class="pull-left">
+                            <select id="skin-colorpicker" class="hide">
+                                <option data-skin="no-skin" value="#438EB9">#438EB9</option>
+                                <option data-skin="skin-1" value="#222A2D">#222A2D</option>
+                                <option data-skin="skin-2" value="#C6487E">#C6487E</option>
+                                <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+                            </select>
+                        </div>
+                        <span>&nbsp; Choose Skin</span>
+                    </div>
+
+                    <!-- /section:settings.skins -->
+
+                    <!-- #section:settings.navbar -->
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-navbar" autocomplete="off" />
+                        <label class="lbl" for="ace-settings-navbar"> Fixed Navbar</label>
+                    </div>
+
+                    <!-- /section:settings.navbar -->
+
+                    <!-- #section:settings.sidebar -->
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-sidebar" autocomplete="off" />
+                        <label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
+                    </div>
+
+                    <!-- /section:settings.sidebar -->
+
+                    <!-- #section:settings.breadcrumbs -->
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-breadcrumbs" autocomplete="off" />
+                        <label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
+                    </div>
+
+                    <!-- /section:settings.breadcrumbs -->
+
+                    <!-- #section:settings.rtl -->
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" autocomplete="off" />
+                        <label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
+                    </div>
+
+                    <!-- /section:settings.rtl -->
+
+                    <!-- #section:settings.container -->
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-add-container" autocomplete="off" />
+                        <label class="lbl" for="ace-settings-add-container">
+                            Inside
+                            <b>.container</b>
+                        </label>
+                    </div>
+
+                    <!-- /section:settings.container -->
+                </div><!-- /.pull-left -->
+
+                <div class="pull-left width-50">
+                    <!-- #section:basics/sidebar.options -->
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-hover" autocomplete="off" />
+                        <label class="lbl" for="ace-settings-hover"> Submenu on Hover</label>
+                    </div>
+
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-compact" autocomplete="off" />
+                        <label class="lbl" for="ace-settings-compact"> Compact Sidebar</label>
+                    </div>
+
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-highlight" autocomplete="off" />
+                        <label class="lbl" for="ace-settings-highlight"> Alt. Active Item</label>
+                    </div>
+
+                    <!-- /section:basics/sidebar.options -->
+                </div><!-- /.pull-left -->
+            </div><!-- /.ace-settings-box -->
+        </div><!-- /.ace-settings-container -->
+
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table id="table_asset" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>主机名称</th>
+                                    <th>业务IP</th>
+                                    <th>操作系统</th>
+                                    <th>内存</th>
+                                    <th>CPU</th>
+                                    <th>磁盘</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div><!-- /.span -->
+                </div><!-- /.row -->
+
+                <!-- PAGE CONTENT ENDS -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.page-content -->
+</div>
+
+
+
+<!-- 侧边栏 begin  -->
+<div id="right-menu" class="modal aside" data-body-scroll="false" data-offset="true" data-placement="right" data-fixed="true" data-backdrop="false" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+                <div class="table-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <span class="white">&times;</span>
+                    </button>
+                    Based on Modal boxes
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <form id ="assetForm" class="form-horizontal" method="post" role="form">
+
+                        <div class="tab-content profile-edit-tab-content">
+                
+                            <!-- 基本信息  begin -->
+                            <div id="edit-basic" class="tab-pane active">
+                                <input id="schoolid" type="hidden" name="id">
+                
+                                <h4 class="header blue bolder smaller">资产详情</h4>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="">序列号</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" value="" name="sn" id="sn"
+                                               placeholder="请输入序列号" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="">主机名称</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" value="" id="hostname" name="hostname"
+                                               placeholder="请输入主机名称" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="">业务IP</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" value="" id="ip_business" name="ip_business"
+                                               placeholder="请输入业务IP" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="">管理IP</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" value="" id="title" name="title"
+                                               placeholder="请输入管理IP" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>   
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="">机架编号</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" value="" id="phone" name="phone"
+                                               placeholder="请输入机架编号" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="">机架位置</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" value="" id="phone" name="phone"
+                                               placeholder="请输入机架位置" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="">是否推荐</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label"><input name="isrecommend"
+                                                                            value="1" type="radio" class="ace" checked="checked"><span
+                                                                            class="lbl">推荐</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
+                                            class="control-label"><input type="radio" value="0"
+                                                                     class="ace" name="isrecommend"><span class="lbl">不推荐</span></label>
+                                    </div>
+                                </div> -->
+                                <h4 class="header blue bolder smaller">配置信息</h4>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="">系统架构</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" value="" id="architecture" name="architecture"
+                                               placeholder="请输入系统架构" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="">系统版本</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" value="" id="distribution" name="distribution"
+                                               placeholder="请输入操作系统版本" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="">CPU</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" value="" id="processor_cores" name="processor_cores"
+                                               placeholder="请输入CPU核心数" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="">内存</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" value="" id="memtotal_mb" name="memtotal_mb"
+                                               placeholder="请输入内存大小" class="col-xs-10 col-sm-7">
+                                    </div>
+                                </div>
+                                <div class="space-4"></div>
+                                <div class="clearfix form-actions">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="ace-icon fa fa-check bigger-110"></i> 保存
+                                        </button>
+                                        &nbsp; &nbsp; &nbsp; <a class="btn btn-info"
+                                                                href="{:url('course/coursetypelist')}" role="button"> <i
+                                                class="ace-icon fa fa-reply bigger-110"></i> 返回
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <!-- 基本信息  end  -->
+                        </div>
+             
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+
+        <!-- 默认的侧边栏触发按钮 -->
+        <!-- <button id="btn_aside_trigger" class="aside-trigger btn btn-info btn-app btn-xs ace-settings-btn" data-target="#right-menu" data-toggle="modal" type="button">
+            <i data-icon1="fa-plus" data-icon2="fa-minus" class="ace-icon fa fa-plus bigger-110 icon-only"></i>
+        </button> -->
+
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+{% endblock %}
+
+
+
+
+{% block plugin-scripts %}
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="{% static 'DataTables-1.10.21/media/css/jquery.dataTables.css' %}">
+<!-- jQuery -->
+<!-- <script type="text/javascript" charset="utf8" src="{% static 'DataTables-1.10.21/media/js/jquery.js' %}"></script> -->
+<!-- DataTables -->
+<script type="text/javascript" charset="utf8" src="{% static 'DataTables-1.10.21/media/js/jquery.dataTables.js' %}"></script>
+
+
+<link rel="stylesheet" href="{% static 'assets/css/ace.onpage-help.css' %}" />
+<link rel="stylesheet" href="{% static 'docs/assets/js/themes/sunburst.css' %}" />
+
+<style type="text/css">
+.modal.aside-vc.navbar-offset .modal-dialog{
+    top:0px
+}
+.modal.aside-vc .modal-dialog{
+    width:450px;
+
+}
+</style>
+
+
+<script type="text/javascript"> ace.vars['base'] = '..'; </script>
+<script src="{% static 'assets/js/src/elements.onpage-help.js' %}"></script>
+<script src="{% static 'assets/js/src/ace.onpage-help.js' %}"></script>
+<script src="{% static 'docs/assets/js/rainbow.js' %}"></script>
+<script src="{% static 'docs/assets/js/language/generic.js' %}"></script>
+<script src="{% static 'docs/assets/js/language/html.js' %}"></script>
+<script src="{% static 'docs/assets/js/language/css.js' %}"></script>
+<script src="{% static 'docs/assets/js/language/javascript.js' %}"></script>
+
+{% endblock %}
+
+{% block related-scripts %}
+
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+
+    jQuery(function($) {
+        $('.modal.aside').ace_aside();
+        
+        //$('#aside-inside-modal').addClass('aside').ace_aside({container: '#my-modal > .modal-dialog'});
+        
+        //$('#top-menu').modal('show')
+        
+        // $(document).one('ajaxloadstart.page', function(e) {
+        //     //in ajax mode, remove before leaving page
+        //     $('.modal.aside').remove();
+        //     $(window).off('.aside')
+        // });
+        
+
+        //make content sliders resizable using jQuery UI (you should include jquery ui files)
+        //$('#right-menu > .modal-dialog').resizable({handles: "w", grid: [ 20, 0 ], minWidth: 200, maxWidth: 600});
+    })
+</script>
+
+
+<script type="text/javascript">
+
+var _DataTable;
+jQuery(document).ready(function() {
+    init_tables()
+});
+
+
+function showedit(id){
+    if (id)
+        //alert(id)
+        console.log(id)
+        jQuery.get('{% url "asset:get_ajax" %}', {'id' : id}, function(result) {
+        if(result['code'] == 200) {
+            console.log(result)
+            jQuery('#assetForm').find('[name=sn]').val(result['result']['sn']);
+            jQuery('#assetForm').find('[name=hostname]').val(result['result']['hostname']);
+            jQuery('#assetForm').find('[name=ip_business]').val(result['result']['ip_business']);
+            jQuery('#assetForm').find('[name=architecture]').val(result['result']['architecture']);
+            jQuery('#assetForm').find('[name=distribution]').val(result['result']['distribution']);
+            jQuery('#assetForm').find('[name=processor_cores]').val(result['result']['processor_cores']);
+            jQuery('#assetForm').find('[name=memtotal_mb]').val(result['result']['memtotal_mb']); 
+        }
+    }, 'json'); 
+}
+
+function fnDelete(id) {
+    layer.confirm('确定要删除数据吗？', {
+        btn: ['确定', '取消'] //按钮
+    }, function () {
+        $.ajax({
+            url: '{% url "asset:delete_ajax" %}',
+            data: {
+                "id": id
+            },
+            dataType: "json",
+            success: function (res) {
+                if (res.code == 200) {
+                    layer.msg(res.msg, {icon: 1, time: 1000}, function () {
+                        //location.href = res.url;
+                        _DataTable.destroy();//重新绑定表格前，需要销毁表格
+                        init_tables();
+                    });
+                } else {
+                    layer.msg(res.msg, {icon: 2, time: 1000});
+                }
+            }
+        });
+
+    }, function () {
+
+    });
+}
+
+
+
+
+function init_tables(){
+    _DataTable = jQuery('#table_asset').DataTable({
+    "language": {
+        "processing": "处理中...",
+        "lengthMenu": "显示 _MENU_ 项结果",
+        "zeroRecords": "没有匹配结果",
+        "info": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+        "infoEmpty": "显示第 0 至 0 项结果，共 0 项",
+        "infoFiltered": "(由 _MAX_ 项结果过滤)",
+        "infoPostFix": "",
+        "search": "搜索:",
+        "searchPlaceholder": "搜索...",
+        "url": "",
+        "emptyTable": "表中数据为空",
+        "loadingRecords": "载入中...",
+        "infoThousands": ",",
+        "paginate": {
+            "first": "首页",
+            "previous": "上页",
+            "next": "下页",
+            "last": "末页"
+        },
+        "aria": {
+            paginate: {
+                first: '首页',
+                previous: '上页',
+                next: '下页',
+                last: '末页'
+            },
+            "sortAscending": ": 以升序排列此列",
+            "sortDescending": ": 以降序排列此列"
+        },
+        "decimal": "-",
+        "thousands": "."
+    },
+    ajax : {
+        url : '{% url "asset:list_ajax" %}',
+        dataSrc: 'result',
+    },
+    columns : [
+         {
+           "data": ""
+         },
+        {
+            "data" : "hostname"
+        },
+        {
+            "data" : "ip_business"
+        },
+        {
+            "data" : "distribution"
+        },
+        {
+            "data" : "memtotal_mb"
+        },
+        {
+            "data" : "processor_cores"
+        },
+        {
+            "data" : "diskmount"
+        },
+        {
+            "data" : "id"
+        },
+    ], 
+    "columnDefs": [{
+        "render": function (data, type, row, meta) {
+            return meta.row + 1;
+        },
+        "targets": 0
+    },{
+        "render": function (data, type, row, meta) {
+            return '<a class="aside-trigger" data-target="#right-menu" data-toggle="modal"  href="#" onClick="showedit('+ row.id +')" >'+ data  +'</a>';
+        },
+        "targets": 1
+    },{
+        "render": function (data, type, row, meta) {
+            return '<div class="">\
+        <a class="btn btn-xs btn-info aside-trigger" title="编辑" data-target="#right-menu" data-toggle="modal" href="javascript:showedit(' + data + ');"><i class="ace-icon fa fa-pencil-square-o bigger-120"></i>编辑</a>\
+        <a class="btn btn-xs btn-danger" title="删除" href="javascript:fnDelete(' + data + ');"><i class="ace-icon fa fa-trash-o bigger-120"></i>删除</a>\
+    </div>';
+        },
+        "targets": 7
+    }
+]
+});
+
+// $('#table_asset tbody' ).on( 'click' ,  'tr' ,  function  () {
+//          var  data = table.row(this).data();
+//          alert(data)
+
+//          console.log(data.id);
+
+//         } );
+
+}
+</script>
+{% endblock %}
+
+
