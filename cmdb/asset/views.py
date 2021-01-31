@@ -2,9 +2,10 @@ from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render
 from django.forms.models import model_to_dict
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.conf import settings
 # Create your views here.
 from .models import Host
+import os
 
 
 def index(request):
@@ -36,3 +37,19 @@ def delete_ajax(request):
     except ObjectDoesNotExist as e:
         pass
     return JsonResponse({'code' : 200})
+
+
+def import_ajax(request):
+
+    # 这里的file_obj拿到了文件的对象，这个对象包含了文件的名字，二进制内容
+    # print(file_obj, type(file_obj))
+    file_obj = request.FILES.get('file_obj')
+    file_name = file_obj.name
+    file_path = os.path.join(settings.BASE_DIR, 'files', file_name)
+    from django.core.files.uploadedfile import InMemoryUploadedFile
+    with open(file_path, 'wb') as f:
+        for chunk in file_obj.chunks():
+            f.write(chunk)
+
+
+    return JsonResponse({'code' : 200, "msg": file_name})

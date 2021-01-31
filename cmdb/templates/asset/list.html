@@ -9,24 +9,25 @@
         <ul class="breadcrumb">
             <li>
                 <i class="ace-icon fa fa-home home-icon"></i>
-                <a href="#">Home</a>
+                <a href="#">主页</a>
             </li>
 
             <li>
-                <a href="#">Tables</a>
+                <a href="#">资产管理</a>
             </li>
-            <li class="active">Simple &amp; Dynamic</li>
+            <li class="active">资产列表</li>
         </ul><!-- /.breadcrumb -->
 
         <!-- #section:basics/content.searchbox -->
-        <div class="nav-search" id="nav-search">
+        <!-- <div class="nav-search" id="nav-search">
             <form class="form-search">
                 <span class="input-icon">
                     <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
                     <i class="ace-icon fa fa-search nav-search-icon"></i>
                 </span>
             </form>
-        </div><!-- /.nav-search -->
+        </div> -->
+        <!-- /.nav-search -->
 
         <!-- /section:basics/content.searchbox -->
     </div>
@@ -122,6 +123,16 @@
             </div><!-- /.ace-settings-box -->
         </div><!-- /.ace-settings-container -->
 
+        <div class="border clearfix">
+            <span class="l_f">
+             <a href="Add_Brand.html"  title="添加品牌" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加品牌</a>
+             <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
+             <a href="javascript:ovid()" id="asset_import" class="btn btn-info">批量导入</a>
+             <a href="javascript:ovid()" class="btn btn-success">国外品牌</a>
+            </span>
+            <span class="r_f">共：<b>234</b>个品牌</span>
+          </div>
+
         <div class="row">
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
@@ -130,6 +141,7 @@
                         <table id="table_asset" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
+                                    <th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
                                     <th>序号</th>
                                     <th>主机名称</th>
                                     <th>业务IP</th>
@@ -265,8 +277,8 @@
                                             <i class="ace-icon fa fa-check bigger-110"></i> 保存
                                         </button>
                                         &nbsp; &nbsp; &nbsp; <a class="btn btn-info"
-                                                                href="{:url('course/coursetypelist')}" role="button"> <i
-                                                class="ace-icon fa fa-reply bigger-110"></i> 返回
+                                                                href="{:url('course/coursetypelist')}" data-dismiss="modal" aria-hidden="true" role="button"> <i
+                                                class="ace-icon fa fa-reply bigger-110" ></i> 关闭
                                         </a>
                                     </div>
                                 </div>
@@ -287,6 +299,23 @@
     </div><!-- /.modal-dialog -->
 </div>
 
+
+<!-- 资产导入模板弹框 begin -->
+<div id="asset_import_model"  style="display:none">
+    <div class="add_adverts">
+    <form id ="assetForm" class="form-horizontal" method="post" role="form">
+        {% csrf_token %}
+        <div class="tab-content profile-edit-tab-content">
+        <div class="form-group">
+                <div class="col-xs-12">
+                    <input type="file" id="input-file-asset" name="input-file-asset" />
+                </div>   
+        </div>
+        </div>
+    </form>
+    </div>
+</div>
+<!-- 资产导入模板弹框  -->
 
 {% endblock %}
 
@@ -313,6 +342,14 @@
     width:450px;
 
 }
+
+.table > tbody > tr > td{
+vertical-align:middle;
+
+}
+.border{ border:1px solid #ddd; padding:10px; height:60px; line-height:36px; margin-bottom:20px; }
+.r_f{ float:right}
+.l_f{ float:left}
 </style>
 
 
@@ -348,6 +385,7 @@
 
         //make content sliders resizable using jQuery UI (you should include jquery ui files)
         //$('#right-menu > .modal-dialog').resizable({handles: "w", grid: [ 20, 0 ], minWidth: 200, maxWidth: 600});
+    
     })
 </script>
 
@@ -357,6 +395,22 @@
 var _DataTable;
 jQuery(document).ready(function() {
     init_tables()
+
+    $('#input-file-asset').ace_file_input({
+					no_file:'请选择模板文件',
+					btn_choose:'选择',
+					btn_change:'更改',
+					droppable:false,
+					onchange:null,
+					thumbnail:false, //| true | large
+					allowExt: ['xls','xlsx'],
+					//blacklist:'exe|php'
+					//onchange:''
+					//
+				}).on('file.error.ace', function(event, info) {//不匹配上面的文件格式就会跳出弹框提示
+            layer.alert("选择Excel格式的文件导入！", {icon: 0, title: "提示"});
+        });;
+
 });
 
 
@@ -407,6 +461,55 @@ function fnDelete(id) {
 }
 
 
+/*******模板上传*********/
+$('#asset_import').on('click', function(){
+	  layer.open({
+        type: 1,
+        title: '资产导入',
+		shadeClose: false,   //点击遮罩关闭层
+        area : ['500px' , ''],
+        content:$('#asset_import_model'),
+		btn:['导入','取消'],
+		yes:function(index,layero){	
+
+            
+
+
+            //创建对象
+            var formdata = new FormData();
+            var file_obj = $('[name=input-file-asset]')[0].files[0];
+            var csrf_data = $('[name=csrfmiddlewaretoken]').val();
+            
+            formdata.append('file_obj',file_obj);
+            formdata.append('csrfmiddlewaretoken',csrf_data);
+
+
+            $.ajax({
+            url: '{% url "asset:import_ajax" %}',
+            type:'post',
+            data:formdata,
+            processData: false ,    // 不处理数据
+            contentType: false,     // 不设置内容类型
+            success: function (res) {
+                if (res.code == 200) {
+                    layer.msg(res.msg, {icon: 1, time: 1000}, function () {
+                        //location.href = res.url;
+                        _DataTable.destroy();
+                        init_tables();
+                    });
+                } else {
+                    layer.msg(res.msg, {icon: 2, time: 1000});
+                }
+            }
+        });
+
+            
+
+		}
+    });
+})
+
+
 
 
 function init_tables(){
@@ -444,11 +547,15 @@ function init_tables(){
         "decimal": "-",
         "thousands": "."
     },
+    "ordering": false,
     ajax : {
         url : '{% url "asset:list_ajax" %}',
         dataSrc: 'result',
     },
     columns : [
+        {
+            "data" : "id"
+        },
          {
            "data": ""
          },
@@ -474,16 +581,24 @@ function init_tables(){
             "data" : "id"
         },
     ], 
-    "columnDefs": [{
+    "columnDefs": [
+    {
+        "render": function (data, type, row, meta) {
+            return '<label><input type="checkbox" class="ace" ><span class="lbl"></span>';
+        },
+        "targets": 0
+    },
+        {
         "render": function (data, type, row, meta) {
             return meta.row + 1;
         },
-        "targets": 0
+        "targets": 1
     },{
         "render": function (data, type, row, meta) {
             return '<a class="aside-trigger" data-target="#right-menu" data-toggle="modal"  href="#" onClick="showedit('+ row.id +')" >'+ data  +'</a>';
         },
-        "targets": 1
+        "targets": 2,
+        "orderable": true
     },{
         "render": function (data, type, row, meta) {
             return '<div class="">\
@@ -491,7 +606,7 @@ function init_tables(){
         <a class="btn btn-xs btn-danger" title="删除" href="javascript:fnDelete(' + data + ');"><i class="ace-icon fa fa-trash-o bigger-120"></i>删除</a>\
     </div>';
         },
-        "targets": 7
+        "targets": 8
     }
 ]
 });
